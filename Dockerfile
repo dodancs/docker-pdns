@@ -1,16 +1,16 @@
-FROM alpine:3.16
+FROM alpine:3.17
 
 RUN apk add --no-cache \
     mariadb-client \
-    pdns \
-    pdns-backend-mysql \
-    pdns-doc \
+    pdns=4.7.2-r0 \
+    pdns-backend-mysql=4.7.2-r0 \
+    pdns-doc=4.7.2-r0 \
     py3-pip \
     python3
 
 RUN pip3 install --no-cache-dir 'Jinja2<3.1' envtpl
 
-ENV VERSION=4.6 \
+ENV VERSION=4.7 \
     PDNS_guardian=yes \
     PDNS_setuid=pdns \
     PDNS_setgid=pdns \
