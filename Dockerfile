@@ -8,7 +8,10 @@ RUN apk add --no-cache \
     py3-pip \
     python3
 
-RUN pip3 install --no-cache-dir 'Jinja2<3.1' envtpl
+ENV PATH "/opt/venv/bin:$PATH"
+
+RUN python3 -m venv /opt/venv \
+    && pip3 install --no-cache-dir envtpl
 
 ENV VERSION=4.8 \
     PDNS_guardian=yes \
