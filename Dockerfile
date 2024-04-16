@@ -1,19 +1,15 @@
-FROM alpine:3.19
+FROM alpine:edge
 
 RUN apk add --no-cache \
     mariadb-client \
-    pdns=4.8.3-r2 \
-    pdns-backend-mysql=4.8.3-r2 \
-    pdns-doc=4.8.3-r2 \
-    py3-pip \
-    python3
+    pdns=4.9.0-r1 \
+    pdns-backend-mysql=4.9.0-r1 \
+    pdns-doc=4.9.0-r1 \
+    && apk add --no-cache --virtual .build-deps curl \
+    && curl -L https://github.com/matt-allan/envtpl/releases/download/0.4.0/x86_64-linux.tar.xz | tar -xJ --strip-components=1 -C /usr/local/bin/ \
+    && apk del .build-deps
 
-ENV PATH "/opt/venv/bin:$PATH"
-
-RUN python3 -m venv /opt/venv \
-    && pip3 install --no-cache-dir envtpl
-
-ENV VERSION=4.8 \
+ENV VERSION=4.9 \
     PDNS_guardian=yes \
     PDNS_setuid=pdns \
     PDNS_setgid=pdns \
