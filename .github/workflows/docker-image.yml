@@ -25,12 +25,12 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build . --file Dockerfile --tag dodancs/pdns:${{ env.RELEASE_VERSION }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
           docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:${{ env.RELEASE_VERSION_2 }}
+          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
           docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:latest
           docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
           docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_2 }}
+          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
           docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:latest
 
       - name: Log in to Docker Hub
@@ -49,10 +49,10 @@ jobs:
       - name: Push the Docker images
         run: |
           docker push dodancs/pdns:${{ env.RELEASE_VERSION }}
-          docker push dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
           docker push dodancs/pdns:${{ env.RELEASE_VERSION_2 }}
+          docker push dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
           docker push dodancs/pdns:latest
           docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION }}
-          docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
           docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_2 }}
+          docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
           docker push ghcr.io/dodancs/docker-pdns:latest
