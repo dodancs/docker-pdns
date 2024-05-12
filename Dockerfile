@@ -1,25 +1,9 @@
 FROM alpine:edge as build-stage
 
-# Install Python
-ARG PYTHON_VERSION=3.12.3
-RUN apk add \
-    wget \
-    gcc \
-    make \
-    zlib-dev \
-    libffi-dev \
-    openssl-dev \
-    musl-dev \
-    && cd /tmp \
-    && wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tgz \
-    && tar xzf Python-${PYTHON_VERSION}.tgz \
-    && cd /tmp/Python-${PYTHON_VERSION} \
-    && ./configure --prefix=/usr --enable-shared --enable-optimizations --with-ensurepip=install \
-    && make install
-
 # Install envtpl
 ENV PATH "/opt/venv/bin:$PATH"
 RUN apk add \
+    python3=3.12.3-r1 \
     binutils \
     libffi-dev \
     && python3 -m venv /opt/venv \
