@@ -24,14 +24,14 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --tag dodancs/pdns:${{ env.RELEASE_VERSION }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:${{ env.RELEASE_VERSION_2 }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} dodancs/pdns:latest
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_2 }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
-          docker tag dodancs/pdns:${{ env.RELEASE_VERSION }} ghcr.io/dodancs/docker-pdns:latest
+          docker build . --file Dockerfile --tag dodancs/pdns:${RELEASE_VERSION#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} dodancs/pdns:${RELEASE_VERSION_2#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} dodancs/pdns:${RELEASE_VERSION_1#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} dodancs/pdns:latest
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION_2#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION_1#v}
+          docker tag dodancs/pdns:${RELEASE_VERSION#v} ghcr.io/dodancs/docker-pdns:latest
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -48,11 +48,11 @@ jobs:
 
       - name: Push the Docker images
         run: |
-          docker push dodancs/pdns:${{ env.RELEASE_VERSION }}
-          docker push dodancs/pdns:${{ env.RELEASE_VERSION_2 }}
-          docker push dodancs/pdns:${{ env.RELEASE_VERSION_1 }}
+          docker push dodancs/pdns:${RELEASE_VERSION#v}
+          docker push dodancs/pdns:${RELEASE_VERSION_2#v}
+          docker push dodancs/pdns:${RELEASE_VERSION_1#v}
           docker push dodancs/pdns:latest
-          docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION }}
-          docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_2 }}
-          docker push ghcr.io/dodancs/docker-pdns:${{ env.RELEASE_VERSION_1 }}
+          docker push ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION#v}
+          docker push ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION_2#v}
+          docker push ghcr.io/dodancs/docker-pdns:${RELEASE_VERSION_1#v}
           docker push ghcr.io/dodancs/docker-pdns:latest
