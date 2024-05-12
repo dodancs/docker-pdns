@@ -32,9 +32,9 @@ COPY --from=build-stage --chown=root:root /dist/envtpl /usr/local/bin/
 
 RUN apk add --no-cache \
     mariadb-client \
-    pdns=4.9.0-r1 \
-    pdns-backend-mysql=4.9.0-r1 \
-    pdns-doc=4.9.0-r1
+    pdns=4.9.0-r3 \
+    pdns-backend-mysql=4.9.0-r3 \
+    pdns-doc=4.9.0-r3
 
 ENV VERSION=4.9 \
     PDNS_guardian=yes \
