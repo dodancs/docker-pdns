@@ -13,14 +13,14 @@ jobs:
       - name: Checkout the source code
         uses: actions/checkout@v4
 
-      - name: Get current tag
+      - name: Get current full version
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-      - name: Get current tag
-        run: echo "RELEASE_VERSION_1=$(echo ${{ env.RELEASE_VERSION }} | cut '.' -f1)" >> $GITHUB_ENV
+      - name: Get current sub-version
+        run: echo "RELEASE_VERSION_2=${RELEASE_VERSION%.*}" >> $GITHUB_ENV
 
-      - name: Get current tag
-        run: echo "RELEASE_VERSION_2=$(echo ${{ env.RELEASE_VERSION }} | cut '.' -f1,2)" >> $GITHUB_ENV
+      - name: Get current main-version
+        run: echo "RELEASE_VERSION_1=${RELEASE_VERSION_2%.*}" >> $GITHUB_ENV
 
       - name: Build the Docker image
         run: |
