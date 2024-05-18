@@ -18,6 +18,7 @@ RUN apk add --no-cache \
     mariadb-client \
     pdns=4.9.0-r3 \
     pdns-backend-mysql=4.9.0-r3 \
+    pdns-backend-pgsql=4.9.0-r3 \
     pdns-doc=4.9.0-r3
 
 ENV VERSION=4.9 \
