@@ -7,9 +7,6 @@ if [ "${PDNS_gmysql_host:-}" != "" ]; then
 
     SQL_COMMAND="mysql -h ${PDNS_gmysql_host} -P ${PDNS_gmysql_port} -u ${PDNS_gmysql_user} -p${PDNS_gmysql_password} -D ${PDNS_gmysql_dbname}"
 
-    # Fix DB schema
-    sed -i 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g ; s/CREATE UNIQUE INDEX/CREATE UNIQUE INDEX IF NOT EXISTS/g ; s/CREATE INDEX/CREATE INDEX IF NOT EXISTS/g' /usr/share/doc/pdns/schema.mysql.sql
-
     # Initialize DB if needed
     $SQL_COMMAND </usr/share/doc/pdns/schema.mysql.sql
 
@@ -21,9 +18,6 @@ if [ "${PDNS_gpgsql_host:-}" != "" ]; then
 
     export PGPASSWORD=${PDNS_gpgsql_password}
     SQL_COMMAND="psql -h ${PDNS_gpgsql_host} -p ${PDNS_gpgsql_port} -U ${PDNS_gpgsql_user} -w ${PDNS_gpgsql_dbname}"
-
-    # Fix DB schema
-    sed -i 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g ; s/CREATE UNIQUE INDEX/CREATE UNIQUE INDEX IF NOT EXISTS/g ; s/CREATE INDEX/CREATE INDEX IF NOT EXISTS/g' /usr/share/doc/pdns/schema.pgsql.sql
 
     # Initialize DB
     $SQL_COMMAND </usr/share/doc/pdns/schema.pgsql.sql
