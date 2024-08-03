@@ -1,9 +1,9 @@
-FROM alpine:edge as build-stage
+FROM alpine:edge AS build-stage
 
 # Install envtpl
-ENV PATH "/opt/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH"
 RUN apk add \
-    python3=3.12.3-r1 \
+    python3 \
     binutils \
     libffi-dev \
     && python3 -m venv /opt/venv \
@@ -16,10 +16,10 @@ COPY --from=build-stage --chown=root:root /dist/envtpl /usr/local/bin/
 
 RUN apk add --no-cache \
     mariadb-client \
-    pdns=4.9.0-r3 \
-    pdns-backend-mysql=4.9.0-r3 \
-    pdns-backend-pgsql=4.9.0-r3 \
-    pdns-doc=4.9.0-r3
+    pdns=4.9.1-r0 \
+    pdns-backend-mysql=4.9.1-r0 \
+    pdns-backend-pgsql=4.9.1-r0 \
+    pdns-doc=4.9.1-r0
 
 ENV VERSION=4.9 \
     PDNS_guardian=yes \
@@ -32,6 +32,10 @@ EXPOSE 53 53/udp
 COPY pdns.conf.tpl /
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
+
+# Fix DB schema
+RUN sed -i 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g ; s/CREATE UNIQUE INDEX/CREATE UNIQUE INDEX IF NOT EXISTS/g ; s/CREATE INDEX/CREATE INDEX IF NOT EXISTS/g' /usr/share/doc/pdns/schema.mysql.sql \
+    && sed -i 's/CREATE TABLE/CREATE TABLE IF NOT EXISTS/g ; s/CREATE UNIQUE INDEX/CREATE UNIQUE INDEX IF NOT EXISTS/g ; s/CREATE INDEX/CREATE INDEX IF NOT EXISTS/g' /usr/share/doc/pdns/schema.pgsql.sql
 
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
