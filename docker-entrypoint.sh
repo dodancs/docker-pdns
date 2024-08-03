@@ -5,7 +5,7 @@ set -euo pipefail
 if [ "${PDNS_gmysql_host:-}" != "" ]; then
     echo "Running migrations on the database..."
 
-    SQL_COMMAND="mysql -h ${PDNS_gmysql_host} -P ${PDNS_gmysql_port} -u ${PDNS_gmysql_user} -p${PDNS_gmysql_password} -D ${PDNS_gmysql_dbname}"
+    SQL_COMMAND="mariadb -h ${PDNS_gmysql_host} -P ${PDNS_gmysql_port} -u ${PDNS_gmysql_user} -p${PDNS_gmysql_password} -D ${PDNS_gmysql_dbname}"
 
     # Initialize DB if needed
     $SQL_COMMAND </usr/share/doc/pdns/schema.mysql.sql
